@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+/* ========================================
+   ROOT VARIABLES FOR LIGHT/DARK MODE
+   ======================================== */
+
+html {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+/* Light Mode (DEFAULT) - Cerah & Fresh */
+body.light {
+  @apply bg-white text-gray-900;
+}
+
+html:not(.dark) {
+  --color-bg-primary: #ffffff;           /* White background */
+  --color-bg-secondary: #f9fafb;         /* Very light gray */
+  --color-bg-tertiary: #f3f4f6;          /* Light gray */
+  --color-text-primary: #111827;         /* Almost black */
+  --color-text-secondary: #4b5563;       /* Medium gray */
+  --color-text-tertiary: #9ca3af;        /* Light gray text */
+  --color-border: #e5e7eb;               /* Light border */
+  --color-border-light: #f3f4f6;         /* Very light border */
+}
+
+/* Dark Mode - Gelap & Mewah */
+body.dark {
+  @apply bg-[#0f172a] text-gray-100;
+}
+
+html.dark {
+  --color-bg-primary: #0f172a;           /* Deep dark blue-black */
+  --color-bg-secondary: #1e293b;         /* Dark slate */
+  --color-bg-tertiary: #334155;          /* Medium dark slate */
+  --color-text-primary: #f1f5f9;         /* Almost white */
+  --color-text-secondary: #cbd5e1;       /* Light gray */
+  --color-text-tertiary: #94a3b8;        /* Medium gray */
+  --color-border: #475569;               /* Dark border */
+  --color-border-light: #334155;         /* Light dark border */
+}
+
+/* Woodcarving Pattern Watermark */
+.carving-watermark {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 10 L60 40 L90 40 L70 55 L80 85 L50 70 L20 85 L30 55 L10 40 L40 40 Z' fill='%23000' opacity='0.03'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+html.dark .carving-watermark {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 10 L60 40 L90 40 L70 55 L80 85 L50 70 L20 85 L30 55 L10 40 L40 40 Z' fill='%23fff' opacity='0.02'/%3E%3C/svg%3E");
+}
+
+/* Scrollbar Styling - Light Mode */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f9fafb;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d1d5db;
+  border-radius: 10px;
+  border: 2px solid #f9fafb;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #9ca3af;
+}
+
+/* Scrollbar Styling - Dark Mode */
+html.dark ::-webkit-scrollbar-track {
+  background-color: #1e293b;
+  border-radius: 10px;
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background-color: #475569;
+  border-radius: 10px;
+  border: 2px solid #1e293b;
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background-color: #64748b;
+}
+
+/* Loading Animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.skeleton {
+  animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
