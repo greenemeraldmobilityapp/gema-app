@@ -1,6 +1,6 @@
 # Project Requirement Document (PRD): GEMA App
 
-**Versi:** 2.0 (Flutter Edition - Comprehensive)
+**Versi:** 2.1 (Flutter Edition - Premium UI/UX)
 **Nama Proyek:** GEMA (Green Emerald Mobility App)
 **Owner:** Emerald Tech Solution
 **Target Launch:** Kabupaten Jepara, Jawa Tengah
@@ -656,65 +656,300 @@ Stream<Order?> orderStream(Ref ref, String orderId) {
 
 ## Dokumen Panduan UI/UX: GEMA App
 
-### 1. Identitas Visual (Branding)
+### 1. Identitas Visual (Branding Premium)
 
-- **Warna Utama: Hijau Zamrud (Emerald Green)**
-  - Hex Code: `#50C878` (Main Emerald)
-  - Hex Code: `#2E8B57` (Dark Emerald untuk aksen)
-- **Warna Pendukung:**
-  - Warning: `#FFCC00` (Kuning Emas - untuk status pending/warning)
-  - Danger: `#E74C3C` (Merah - untuk pembatalan/error)
-  - Success: `#27AE60` (Hijau - untuk delivered/sukses)
-  - Info: `#3498DB` (Biru - untuk in-progress)
-- **Identitas Lokal:** Watermark pola ukiran kayu Jepara dengan opasitas rendah (3-5%) pada latar belakang aplikasi.
+- **Warna Utama: Hijau Zamrud (Emerald Green) — Gradient**
+  - Primary Gradient: `#50C878` → `#34D399` → `#2E8B57`
+  - Solid Primary: `#50C878` (fallback)
+  - Dark Emerald: `#1B5E3B` (untuk dark mode accents)
+- **Warna Premium:**
+  - Gold Accent: `#FFD700` (untuk wallet, premium features, rating bintang)
+  - Warning: `#FFB800` (lebih soft dari kuning standar)
+  - Danger: `#FF4757` (modern red, bukan `#E74C3C` yang jadul)
+  - Success: `#2ED573` (vibrant green)
+  - Info: `#5B9FFF` (modern blue, bukan `#3498DB`)
+- **Neutral Palette:**
+  - Background Light: `#F8FAFB` (bukan putih polos — ada hint biru sangat halus)
+  - Background Dark: `#0A0A0A` (deep black, bukan `#121212`)
+  - Surface Light: `#FFFFFF` dengan opacity 80% (glass effect)
+  - Surface Dark: `#1A1A1A` dengan border `#2A2A2A`
+  - Text Primary Light: `#1A1A2E` (deep navy-black, bukan hitam biasa)
+  - Text Primary Dark: `#F0F0F0` (warm white)
+  - Text Secondary: `#6B7280` (cool gray)
+- **Identitas Lokal:** Watermark pola ukiran kayu Jepara dengan opasitas sangat rendah (2-3%) sebagai subtle pattern di background, bukan elemen dominan.
 
-### 2. Struktur Layout & Navigasi (Gojek-Style)
+### 2. Design Language: Glassmorphism + Gradient
+
+**Filosofi Design:** Tampilan mewah, modern, dan premium — seperti aplikasi iOS 17/18 atau aplikasi fintech kelas atas. Tidak terlihat "jadul" atau "murah".
+
+#### Glassmorphism Cards
+- Background semi-transparan dengan `backdrop blur` effect
+- Border tipis dengan gradient subtle (`rgba(255,255,255,0.2)` → `rgba(255,255,255,0.05)`)
+- Shadow lembut yang dalam, bukan shadow keras
+- `borderRadius: 20` minimum untuk semua cards
+
+#### Gradient Elements
+- **Tombol Primary:** Linear gradient `#50C878` → `#34D399` dengan subtle glow
+- **Tombol Secondary:** Outlined button dengan border gradient
+- **Header/AppBar:** Gradient transparan → solid saat scroll
+- **Service Cards:** Setiap layanan punya gradient unik:
+  - GEMA-Food: `#50C878` → `#34D399` (Emerald)
+  - GEMA-Send: `#5B9FFF` → `#3B82F6` (Blue)
+  - GEMA-Service: `#FFB800` → `#F59E0B` (Gold)
+
+#### Micro-Interactions
+- **Button Press:** Scale down 0.97 + shadow reduction
+- **Card Hover/Tap:** Subtle lift effect (elevation increase)
+- **Page Transitions:** Shared axis atau fade through (bukan slide biasa)
+- **List Items:** Staggered fade-in animation saat muncul
+- **Pull to Refresh:** Custom indicator dengan logo GEMA yang rotate
+
+### 3. Struktur Layout & Navigasi (Modern Premium)
 
 - **Beranda (Homepage):**
-  - Header: Profil singkat & Saldo Wallet (Emerald Wallet).
-  - Main Body: Grid Ikon 3x2 atau 4x2 untuk layanan utama:
-    - GEMA-Food: Ikon piring/sendok.
-    - GEMA-Send: Ikon paket/motor.
-    - GEMA-Service: Ikon kunci inggris/palu ukir.
-  - Footer: Bottom Navigation Bar (Home, Aktivitas, Chat, Profil).
-- **Halaman Transaksi/Peta:**
-  - Top 50% Screen: Peta interaktif (flutter_map) menunjukkan rute kurir.
-  - Bottom 50% Screen: DraggableScrollableSheet berisi detail: Nama kurir, plat nomor, estimasi waktu, dan tombol chat/telepon.
+  - **AppBar:** Transparent dengan blur effect, menampilkan greeting ("Selamat Pagi, [Nama]!") + avatar + notifikasi bell dengan badge
+  - **Wallet Card:** Glassmorphism card dengan gradient emerald subtle, menampilkan saldo + quick actions (Top Up, Withdraw)
+  - **Service Grid:** Bukan icon grid biasa — setiap layanan adalah **card besar** dengan:
+    - Gradient background unik per layanan
+    - Phosphor Icon besar (32-40px) dengan warna putih
+    - Label di bawah icon
+    - Subtle shadow + border radius 20px
+  - **Promo Banner:** Horizontal scrollable carousel dengan glass overlay
+  - **Bottom Navigation:** **Floating style** (tidak nempel tepi bawah, ada margin 12px dari bawah & samping), dengan:
+    - Active icon: Filled Phosphor Icon + gradient background pill
+    - Inactive icon: Light Phosphor Icon + label kecil
+    - Blur background pada nav bar
 
-### 3. Desain Mode (Dual Themes)
+- **Halaman Transaksi/Peta:**
+  - Full screen map dengan glassmorphism overlay
+  - **DraggableScrollableSheet** dengan glass effect:
+    - Background: `rgba(255,255,255,0.85)` + backdrop blur
+    - Border radius top: 24px
+    - Driver info: Avatar besar + nama + rating bintang gold + plat nomor
+    - ETA dengan countdown timer
+    - Action buttons: Chat (gradient blue), Telepon (gradient green), Emergency (gradient red)
+
+### 4. Desain Mode (Dual Themes — Premium)
 
 | Elemen UI | Light Mode | Dark Mode |
 |---|---|---|
-| Background Utama | #FFFFFF (Putih Bersih) | #121212 (Deep Black) |
-| Card / Surface | #F8F9FA (Abu Muda) | #1E1E1E (Dark Grey) |
-| Teks Utama | #2D3436 (Hitam Keabuan) | #E0E0E0 (Putih Tulang) |
-| Aksen Ukiran | Abu-abu sangat muda | Emerald gelap (opasitas 5%) |
+| Background | `#F8FAFB` (hint biru halus) | `#0A0A0A` (deep black) |
+| Glass Card | `rgba(255,255,255,0.8)` + blur 20px | `rgba(26,26,26,0.8)` + blur 20px |
+| Card Border | `rgba(255,255,255,0.5)` 1px | `rgba(255,255,255,0.08)` 1px |
+| Card Shadow | `0 8px 32px rgba(0,0,0,0.08)` | `0 8px 32px rgba(0,0,0,0.3)` |
+| Teks Utama | `#1A1A2E` (deep navy-black) | `#F0F0F0` (warm white) |
+| Teks Secondary | `#6B7280` (cool gray) | `#9CA3AF` (medium gray) |
+| Primary Gradient | `#50C878` → `#34D399` | `#34D399` → `#2E8B57` |
+| Bottom Nav | Glass white + blur | Glass dark + blur |
 
-### 4. Komponen UI Utama (Reusable Widgets)
+### 5. Tipografi (Premium Font Stack)
 
-- **Buttons:** `ElevatedButton` / `FilledButton` dengan `borderRadius: BorderRadius.circular(10)`.
-- **Cards:** `Card` dengan `elevation: 2` (light mode), `shape: RoundedRectangleBorder(borderSide: BorderSide())` (dark mode).
-- **Inputs:** `TextField` dengan `focusedBorderColor: EmeraldGreen`.
-- **Status Badges:** `Chip` dengan warna dinamis berdasarkan status order.
-- **Loading:** `Shimmer` package untuk skeleton loading.
-- **Dialogs:** `showModalBottomSheet` untuk action sheets, `AlertDialog` untuk konfirmasi.
+**Jangan pakai Roboto default — terlihat jadul dan terlalu "Android".**
 
-### 5. User Experience (UX) Principles
+| Penggunaan | Font | Weight | Size Range |
+|---|---|---|---|
+| **Heading Besar** | Plus Jakarta Sans | Bold (700) | 24-32px |
+| **Heading Medium** | Plus Jakarta Sans | SemiBold (600) | 18-22px |
+| **Subheading** | Plus Jakarta Sans | Medium (500) | 14-16px |
+| **Body Text** | Inter | Regular (400) | 14-16px |
+| **Body Bold** | Inter | Medium (500) | 14px |
+| **Harga/Angka** | DM Sans | SemiBold (600) | 16-24px |
+| **Caption/Label** | Inter | Regular (400) | 12px |
+| **Button Text** | Plus Jakarta Sans | SemiBold (600) | 14-16px |
 
-- **Haptic Feedback:** `HapticFeedback.lightImpact()` saat menekan tombol penting.
-- **Visual Feedback:** Shimmer loading saat data fetch dari Supabase.
-- **Real-time Interaction:** `StreamBuilder` + Supabase Realtime untuk update status order instan.
-- **Error Handling:** `SnackBar` untuk error, retry button untuk failed requests.
-- **Offline Support:** Keranjang & cached data di Isar, browse produk tanpa internet.
+**Font Loading (pubspec.yaml):**
+```yaml
+fonts:
+  - family: PlusJakartaSans
+    fonts:
+      - asset: assets/fonts/PlusJakartaSans-Regular.ttf
+      - asset: assets/fonts/PlusJakartaSans-Medium.ttf (weight: 500)
+      - asset: assets/fonts/PlusJakartaSans-SemiBold.ttf (weight: 600)
+      - asset: assets/fonts/PlusJakartaSans-Bold.ttf (weight: 700)
+  - family: Inter
+    fonts:
+      - asset: assets/fonts/Inter-Regular.ttf
+      - asset: assets/fonts/Inter-Medium.ttf (weight: 500)
+  - family: DMSans
+    fonts:
+      - asset: assets/fonts/DMSans-Regular.ttf
+      - asset: assets/fonts/DMSans-SemiBold.ttf (weight: 600)
+```
 
-### 6. Offline & Sync Strategy
+### 6. Icon System (Phosphor Icons)
+
+**Package:** `phosphor_flutter` — premium, dual-tone, sangat modern.
+
+| Konteks | Icon Style | Size |
+|---|---|---|
+| **Bottom Nav** | `PhosphorIconsStyle.fill` (active) / `PhosphorIconsStyle.regular` (inactive) | 24px |
+| **Service Cards** | `PhosphorIconsStyle.duotone` | 32-40px |
+| **Action Buttons** | `PhosphorIconsStyle.bold` | 20px |
+| **List Items** | `PhosphorIconsStyle.regular` | 20px |
+| **Status Icons** | `PhosphorIconsStyle.fill` | 16-20px |
+
+**Icon Mapping untuk Layanan Utama:**
+- GEMA-Food: `PhosphorIcons.forkKnife` (duotone)
+- GEMA-Send: `PhosphorIcons.package` (duotone)
+- GEMA-Service: `PhosphorIcons.wrench` (duotone)
+- Wallet: `PhosphorIcons.wallet` (duotone)
+- Chat: `PhosphorIcons.chatCircleDots` (duotone)
+- Tracking: `PhosphorIcons.mapPinLine` (duotone)
+- Profile: `PhosphorIcons.userCircle` (duotone)
+- Notification: `PhosphorIcons.bell` (regular/fill)
+
+### 7. Komponen UI Utama (Premium Reusable Widgets)
+
+#### Gradient Button (Primary CTA)
+```dart
+Container(
+  decoration: BoxDecoration(
+    gradient: LinearGradient(
+      colors: [Color(0xFF50C878), Color(0xFF34D399)],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    ),
+    borderRadius: BorderRadius.circular(16),
+    boxShadow: [
+      BoxShadow(
+        color: Color(0xFF50C878).withOpacity(0.4),
+        blurRadius: 12,
+        offset: Offset(0, 4),
+      ),
+    ],
+  ),
+  child: Material(
+    color: Colors.transparent,
+    child: InkWell(
+      borderRadius: BorderRadius.circular(16),
+      onTap: onPressed,
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+        child: Text(label, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
+      ),
+    ),
+  ),
+)
+```
+
+#### Glass Card
+```dart
+ClipRRect(
+  borderRadius: BorderRadius.circular(20),
+  child: BackdropFilter(
+    filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+    child: Container(
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.8),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.white.withOpacity(0.3), width: 1.5),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.08),
+            blurRadius: 24,
+            offset: Offset(0, 8),
+          ),
+        ],
+      ),
+      child: child,
+    ),
+  ),
+)
+```
+
+#### Floating Bottom Navigation
+```dart
+// Margin dari tepi: 12px bottom, 16px left/right
+Container(
+  margin: EdgeInsets.fromLTRB(16, 0, 16, 12),
+  decoration: BoxDecoration(
+    color: Colors.white.withOpacity(0.9),
+    borderRadius: BorderRadius.circular(24),
+    boxShadow: [
+      BoxShadow(
+        color: Colors.black.withOpacity(0.1),
+        blurRadius: 20,
+        offset: Offset(0, 4),
+      ),
+    ],
+  ),
+  child: ClipRRect(
+    borderRadius: BorderRadius.circular(24),
+    child: BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+      child: BottomNavigationBar(...),
+    ),
+  ),
+)
+```
+
+#### Status Badge (Gradient)
+```dart
+// pending → gold gradient, delivered → green gradient, cancelled → red gradient
+Container(
+  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+  decoration: BoxDecoration(
+    gradient: LinearGradient(colors: statusColors),
+    borderRadius: BorderRadius.circular(20),
+  ),
+  child: Text(statusLabel, style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w600)),
+)
+```
+
+#### Shimmer Loading (Premium)
+```dart
+// Gunakan package: shimmer
+Shimmer.fromColors(
+  baseColor: Colors.grey[300]!,
+  highlightColor: Colors.grey[100]!,
+  child: Container(
+    height: 200,
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(20),
+    ),
+  ),
+)
+```
+
+### 8. User Experience (UX) Principles — Premium
+
+- **Haptic Feedback:**
+  - `HapticFeedback.lightImpact()` — tombol biasa
+  - `HapticFeedback.mediumImpact()` — aksi penting (checkout, confirm)
+  - `HapticFeedback.heavyImpact()` — success/error state
+  - `HapticFeedback.selectionClick()` — scroll snap, picker
+
+- **Visual Feedback:**
+  - Staggered animation: List items muncul satu per satu (delay 50ms)
+  - Hero animations: Transisi halaman dengan shared element
+  - Skeleton shimmer: Gradient animation, bukan pulsing dot
+  - Pull-to-refresh: Custom GEMA logo yang rotate
+
+- **Real-time Interaction:**
+  - Supabase Realtime + `StreamBuilder` untuk update order instan
+  - Live location tracking di peta dengan smooth polyline animation
+  - Chat typing indicator + read receipts
+
+- **Error Handling:**
+  - Custom error screen dengan illustration (bukan teks error biasa)
+  - Retry button dengan gradient style
+  - Toast notification (package: `toastification`) — elegant, auto-dismiss
+
+- **Offline Support:**
+  - Isar untuk cache produk, toko, keranjang
+  - Offline indicator bar (gradient red) di top app saat tidak ada koneksi
+  - Auto-sync queue saat kembali online
+
+### 9. Offline & Sync Strategy
 
 - **Isar Database:** Cache produk, toko, dan keranjang belanja untuk akses offline.
 - **Sync Queue:** Order yang dibuat saat offline masuk ke `OfflineOrder` collection, auto-sync saat online kembali.
 - **Connectivity Check:** `connectivity_plus` package untuk deteksi status jaringan.
 - **Push Notifications:** Firebase Cloud Messaging untuk notifikasi order status, chat baru, dan promo.
 
-### 7. Keamanan & Compliance
+### 10. Keamanan & Compliance
 
 - **Rate Limiting:** Max 10 requests/menit per user untuk endpoint order dan login (Supabase Edge Function).
 - **Image Optimization:** Supabase Storage, max 5MB per gambar, format WebP/JPG/PNG, `cached_network_image` untuk caching.
@@ -722,21 +957,24 @@ Stream<Order?> orderStream(Ref ref, String orderId) {
 - **Input Validation:** Form validation dengan Dart native + `formz` atau `super_form_validation`.
 - **Secure Storage:** `flutter_secure_storage` untuk menyimpan tokens & sensitive data.
 
-### 8. Design System & Flutter Stack
+### 11. Design System & Flutter Stack (Premium)
 
 | Komponen | Pilihan | Alasan |
 |---|---|---|
 | **UI Framework** | Material 3 (built-in) | Native Flutter, konsisten, theming mudah |
-| **Icons** | Material Icons + Lucide Icons | Clean, 2000+ icons, konsisten |
-| **Animations** | flutter_animate + implicit animations | Smooth transitions, declarative |
+| **Icons** | **Phosphor Icons** (`phosphor_flutter`) | Premium, dual-tone, sangat modern — bukan Material Icons jadul |
+| **Fonts** | Plus Jakarta Sans + Inter + DM Sans | Modern, premium feel, bukan Roboto |
+| **Glass Effect** | `dart:ui` ImageFilter.blur | Native Flutter, performa tinggi |
+| **Animations** | `flutter_animate` + implicit animations | Smooth, declarative, staggered support |
 | **Forms** | Formz + native TextFormField | Type-safe validation, clean API |
 | **Maps** | flutter_map | OpenStreetMap, gratis, tanpa API key |
 | **Charts (Admin)** | fl_chart | Beautiful, customizable, ringan |
-| **Toast/Snackbar** | fluttertoast + SnackBar | Elegant, lightweight |
+| **Toast** | `toastification` | Modern, elegant, auto-dismiss, gradient support |
+| **Shimmer** | `shimmer` | Gradient loading animation |
 | **Image Cache** | cached_network_image | Auto-caching, placeholder, error widget |
 | **State Management** | Riverpod + riverpod_generator | Compile-safe, auto-dispose, testable |
 
-### 9. Flutter Project Structure
+### 12. Flutter Project Structure
 
 ```
 gema_app/
@@ -747,8 +985,10 @@ gema_app/
 │   ├── app.dart                # MaterialApp + go_router
 │   ├── core/
 │   │   ├── theme/
-│   │   │   ├── app_theme.dart       # ThemeData (light/dark)
-│   │   │   └── colors.dart          # Emerald color constants
+│   │   │   ├── app_theme.dart       # ThemeData (light/dark + glassmorphism)
+│   │   │   ├── colors.dart          # Emerald gradient + premium palette
+│   │   │   ├── typography.dart      # Plus Jakarta Sans + Inter + DM Sans
+│   │   │   └── shadows.dart         # Premium shadow presets
 │   │   ├── constants/
 │   │   │   ├── api_constants.dart   # Supabase URL, Xendit keys
 │   │   │   └── app_constants.dart   # App-wide constants
@@ -757,10 +997,14 @@ gema_app/
 │   │   │   ├── formatters.dart      # Currency, date formatting
 │   │   │   └── validators.dart      # Input validation
 │   │   └── widgets/
-│   │       ├── empty_state.dart
-│   │       ├── error_widget.dart
-│   │       ├── loading_shimmer.dart
-│   │       └── status_badge.dart
+│   │       ├── glass_card.dart          # Glassmorphism card reusable
+│   │       ├── gradient_button.dart     # Premium gradient CTA
+│   │       ├── floating_nav_bar.dart    # Floating bottom navigation
+│   │       ├── status_badge.dart        # Gradient status badge
+│   │       ├── shimmer_loader.dart      # Premium skeleton loading
+│   │       ├── empty_state.dart         # Illustration + CTA
+│   │       ├── error_screen.dart        # Custom error with retry
+│   │       └── service_card.dart        # Home service grid card
 │   ├── data/
 │   │   ├── local/
 │   │   │   ├── isar_collections.dart
@@ -793,7 +1037,10 @@ gema_app/
 │       │   └── widgets/
 │       ├── home/
 │       │   ├── screens/home_screen.dart
-│       │   └── widgets/service_grid.dart
+│       │   └── widgets/
+│       │       ├── wallet_card.dart
+│       │       ├── service_grid.dart
+│       │       └── promo_carousel.dart
 │       ├── marketplace/
 │       │   ├── screens/
 │       │   └── widgets/
@@ -808,76 +1055,260 @@ gema_app/
 │       └── profile/
 ├── assets/
 │   ├── images/                 # Logo, icons, illustrations
-│   └── fonts/                  # Custom fonts
+│   ├── fonts/                  # Plus Jakarta Sans, Inter, DM Sans
+│   └── patterns/               # Ukiran Jepara subtle pattern
 ├── test/                       # Unit & widget tests
 ├── pubspec.yaml                # Dependencies
 └── codemagic.yaml              # CI/CD config
 ```
 
-### 10. Emerald Theme (Flutter ThemeData)
+### 13. Emerald Premium Theme (Flutter ThemeData — Glassmorphism + Gradient)
 
 ```dart
 // lib/core/theme/app_theme.dart
+import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class AppTheme {
+  // ==========================================
+  // COLOR PALETTE (Premium)
+  // ==========================================
   static const emeraldPrimary = Color(0xFF50C878);
-  static const emeraldDark = Color(0xFF2E8B57);
-  static const warning = Color(0xFFFFCC00);
-  static const danger = Color(0xFFE74C3C);
-  static const success = Color(0xFF27AE60);
-  static const info = Color(0xFF3498DB);
+  static const emeraldLight = Color(0xFF34D399);
+  static const emeraldDark = Color(0xFF1B5E3B);
+  static const goldAccent = Color(0xFFFFD700);
+  static const warning = Color(0xFFFFB800);
+  static const danger = Color(0xFFFF4757);
+  static const success = Color(0xFF2ED573);
+  static const info = Color(0xFF5B9FFF);
 
+  // Neutral
+  static const bgLight = Color(0xFFF8FAFB);
+  static const bgDark = Color(0xFF0A0A0A);
+  static const surfaceLight = Color(0xFFFFFFFF);
+  static const surfaceDark = Color(0xFF1A1A1A);
+  static const textPrimaryLight = Color(0xFF1A1A2E);
+  static const textPrimaryDark = Color(0xFFF0F0F0);
+  static const textSecondary = Color(0xFF6B7280);
+  static const textSecondaryDark = Color(0xFF9CA3AF);
+
+  // Gradients
+  static const emeraldGradient = LinearGradient(
+    colors: [emeraldPrimary, emeraldLight],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+
+  static const goldGradient = LinearGradient(
+    colors: [Color(0xFFFFB800), Color(0xFFF59E0B)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+
+  // ==========================================
+  // SHADOWS (Premium)
+  // ==========================================
+  static List<BoxShadow> get softShadow => [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.08),
+          blurRadius: 24,
+          offset: const Offset(0, 8),
+        ),
+      ];
+
+  static List<BoxShadow> get glowShadow => [
+        BoxShadow(
+          color: emeraldPrimary.withOpacity(0.4),
+          blurRadius: 12,
+          offset: const Offset(0, 4),
+        ),
+      ];
+
+  // ==========================================
+  // TYPOGRAPHY
+  // ==========================================
+  static const headingFont = 'PlusJakartaSans';
+  static const bodyFont = 'Inter';
+  static const numberFont = 'DMSans';
+
+  // ==========================================
+  // LIGHT THEME
+  // ==========================================
   static ThemeData get lightTheme => ThemeData(
         useMaterial3: true,
         brightness: Brightness.light,
+        fontFamily: bodyFont,
+        scaffoldBackgroundColor: bgLight,
         colorScheme: ColorScheme.light(
           primary: emeraldPrimary,
-          secondary: emeraldDark,
-          surface: const Color(0xFFF8F9FA),
+          secondary: emeraldLight,
+          surface: surfaceLight,
           error: danger,
+          onPrimary: Colors.white,
+          onSurface: textPrimaryLight,
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          centerTitle: false,
+          titleTextStyle: TextStyle(
+            fontFamily: headingFont,
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            color: textPrimaryLight,
+          ),
+          iconTheme: IconThemeData(color: textPrimaryLight),
         ),
         cardTheme: CardTheme(
-          elevation: 2,
+          elevation: 0,
+          color: surfaceLight.withOpacity(0.8),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(20),
+            side: BorderSide(color: Colors.white.withOpacity(0.5), width: 1.5),
           ),
+          shadowColor: Colors.black.withOpacity(0.08),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: emeraldPrimary,
             foregroundColor: Colors.white,
+            elevation: 0,
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            textStyle: const TextStyle(
+              fontFamily: headingFont,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ),
         inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: surfaceLight,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           focusedBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: emeraldPrimary, width: 2),
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(16),
           ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey.shade200, width: 1.5),
+            borderRadius: BorderRadius.circular(16),
           ),
+          errorBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: danger, width: 1.5),
+            borderRadius: BorderRadius.circular(16),
+          ),
+          hintStyle: TextStyle(color: textSecondary, fontSize: 14),
+        ),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: emeraldPrimary,
+          unselectedItemColor: textSecondary,
+        ),
+        textTheme: const TextTheme(
+          displayLarge: TextStyle(fontFamily: headingFont, fontSize: 32, fontWeight: FontWeight.w700, color: textPrimaryLight),
+          displayMedium: TextStyle(fontFamily: headingFont, fontSize: 28, fontWeight: FontWeight.w700, color: textPrimaryLight),
+          headlineMedium: TextStyle(fontFamily: headingFont, fontSize: 22, fontWeight: FontWeight.w600, color: textPrimaryLight),
+          titleLarge: TextStyle(fontFamily: headingFont, fontSize: 18, fontWeight: FontWeight.w600, color: textPrimaryLight),
+          titleMedium: TextStyle(fontFamily: headingFont, fontSize: 16, fontWeight: FontWeight.w600, color: textPrimaryLight),
+          bodyLarge: TextStyle(fontFamily: bodyFont, fontSize: 16, fontWeight: FontWeight.w400, color: textPrimaryLight),
+          bodyMedium: TextStyle(fontFamily: bodyFont, fontSize: 14, fontWeight: FontWeight.w400, color: textPrimaryLight),
+          labelLarge: TextStyle(fontFamily: headingFont, fontSize: 14, fontWeight: FontWeight.w600),
+          labelSmall: TextStyle(fontFamily: bodyFont, fontSize: 12, fontWeight: FontWeight.w400, color: textSecondary),
         ),
       );
 
+  // ==========================================
+  // DARK THEME
+  // ==========================================
   static ThemeData get darkTheme => ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,
+        fontFamily: bodyFont,
+        scaffoldBackgroundColor: bgDark,
         colorScheme: ColorScheme.dark(
-          primary: emeraldPrimary,
+          primary: emeraldLight,
           secondary: emeraldDark,
-          surface: const Color(0xFF1E1E1E),
+          surface: surfaceDark,
           error: danger,
+          onPrimary: Colors.white,
+          onSurface: textPrimaryDark,
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          centerTitle: false,
+          titleTextStyle: TextStyle(
+            fontFamily: headingFont,
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            color: textPrimaryDark,
+          ),
+          iconTheme: IconThemeData(color: textPrimaryDark),
         ),
         cardTheme: CardTheme(
           elevation: 0,
+          color: surfaceDark,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-            side: const BorderSide(color: Color(0xFF333333)),
+            borderRadius: BorderRadius.circular(20),
+            side: const BorderSide(color: Color(0xFF2A2A2A), width: 1),
           ),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: emeraldLight,
+            foregroundColor: Colors.white,
+            elevation: 0,
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            textStyle: const TextStyle(
+              fontFamily: headingFont,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: const Color(0xFF1A1A1A),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: emeraldLight, width: 2),
+            borderRadius: BorderRadius.circular(16),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Color(0xFF2A2A2A), width: 1.5),
+            borderRadius: BorderRadius.circular(16),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: danger, width: 1.5),
+            borderRadius: BorderRadius.circular(16),
+          ),
+          hintStyle: const TextStyle(color: textSecondaryDark, fontSize: 14),
+        ),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: emeraldLight,
+          unselectedItemColor: textSecondaryDark,
+        ),
+        textTheme: const TextTheme(
+          displayLarge: TextStyle(fontFamily: headingFont, fontSize: 32, fontWeight: FontWeight.w700, color: textPrimaryDark),
+          displayMedium: TextStyle(fontFamily: headingFont, fontSize: 28, fontWeight: FontWeight.w700, color: textPrimaryDark),
+          headlineMedium: TextStyle(fontFamily: headingFont, fontSize: 22, fontWeight: FontWeight.w600, color: textPrimaryDark),
+          titleLarge: TextStyle(fontFamily: headingFont, fontSize: 18, fontWeight: FontWeight.w600, color: textPrimaryDark),
+          titleMedium: TextStyle(fontFamily: headingFont, fontSize: 16, fontWeight: FontWeight.w600, color: textPrimaryDark),
+          bodyLarge: TextStyle(fontFamily: bodyFont, fontSize: 16, fontWeight: FontWeight.w400, color: textPrimaryDark),
+          bodyMedium: TextStyle(fontFamily: bodyFont, fontSize: 14, fontWeight: FontWeight.w400, color: textPrimaryDark),
+          labelLarge: TextStyle(fontFamily: headingFont, fontSize: 14, fontWeight: FontWeight.w600),
+          labelSmall: TextStyle(fontFamily: bodyFont, fontSize: 12, fontWeight: FontWeight.w400, color: textSecondaryDark),
         ),
       );
 }
@@ -909,13 +1340,14 @@ Sebelum memulai development, pastikan kamu sudah menyimpan ini:
 - [ ] Profile management & address management
 - [ ] Wallet system (balance, held_balance)
 - [ ] Isar local database setup
+- [ ] Premium theme implementation (glassmorphism, gradient, Phosphor Icons, custom fonts)
 
 ### Phase 2: Marketplace & Stores (Minggu 3-4)
 - [ ] CRUD Toko & Produk/Jasa
 - [ ] Katalog produk dengan filter & search
 - [ ] Shopping cart (Isar offline) & checkout
 - [ ] Image upload ke Supabase Storage
-- [ ] Emerald theme implementation (light/dark)
+- [ ] Premium UI components (glass cards, gradient buttons, shimmer loading)
 
 ### Phase 3: Orders & Payment (Minggu 5-6)
 - [ ] Order creation & status management
@@ -923,6 +1355,7 @@ Sebelum memulai development, pastikan kamu sudah menyimpan ini:
 - [ ] COD flow dengan held_balance
 - [ ] Transaction ledger & withdrawal
 - [ ] Real-time order status (Supabase Realtime)
+- [ ] Premium order tracking UI (gradient status badges, animations)
 
 ### Phase 4: Driver & Logistics (Minggu 7-8)
 - [ ] Driver dispatching system
@@ -930,12 +1363,14 @@ Sebelum memulai development, pastikan kamu sudah menyimpan ini:
 - [ ] Haversine formula untuk ongkir
 - [ ] Order status lifecycle lengkap
 - [ ] Background location updates (geolocator)
+- [ ] Premium map overlay (glassmorphism bottom sheet)
 
 ### Phase 5: Social & Polish (Minggu 9-10)
 - [ ] Chat system (buyer ↔ driver, buyer ↔ merchant)
 - [ ] Rating & review system
 - [ ] Push notifications (Firebase)
 - [ ] Offline mode & sync queue (Isar)
+- [ ] Micro-interactions & animations polish
 
 ### Phase 6: Testing & Launch (Minggu 11-12)
 - [ ] Unit & widget testing
