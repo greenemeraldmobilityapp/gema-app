@@ -1,0 +1,34 @@
+# Large/unnecessary files
+filebrowser.db
+stitch-gema-app-flutter.zip
+stitch-design/
+
+# Flutter/Dart
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/build/
+
+# Android
+android/app/debug/
+android/app/profile/
+android/app/release/
+android/app/build/
+android/local.properties
+android/captures/
+android/gradlew
+android/gradlew.bat
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db

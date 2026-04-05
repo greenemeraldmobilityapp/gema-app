@@ -1,0 +1,12 @@
+# This file tracks properties of this Flutter project.
+# Used by Flutter tooling and IDEs.
+version:
+  revision: f36a286525d5a8945207fe5fa3a9c2c6f4f5b5c8
+  channel: stable
+
+project_type: app
+
+# Tracks metadata for the flutter tool.
+dart:
+  args: []
+  obs: []
